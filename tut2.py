@@ -72,57 +72,36 @@ def convo_nowrap(c,d):
 
 #Question 5
 
-
 class Complex:
-    def __init__ (self,r=0,i=0):
-        self.r=r
-        self.i=i
-    
-    def copy(self):
-        return Complex(self.r, self.i)
-        
-        
-    def __sub__(self,num ):
-        sol=self.copy()
-        sol.r -= num.r
-        sol.i-=num.i
-        return sol
-        
-    def __mul__(self,num):
-        sol=self.copy()
-        prodr=0
-        prodi=0
-        
-        prodr+=sol.r*num.r
-        prodi+=sol.i*num.i
-        prodr+=num.r*sol.r
-        prodi+=sol.i*num.i
+    def __init__(self, real=0, imag=0): #init gets called when new instance of Complex (object) is made
+        self.r = real
+        self.i = imag
 
-        sol.r=prodr
-        sol,i=prodi
 
-        return sol
+    def __sub__(self, num): # subtraction between object itself and some other number
+        return Complex(self.r - num.r,
+                       self.i - num.i)
 
-    def __div__(self,num):
-        sol=self.copy()
-        conjnum=Complex(num.r,num.i*-1)
-        a=sol.__mul__(conjnum)
-        b=num.__mul__(conjnum)
+    def __mul__(self, num):
+        return Complex(self.r*num.r - self.i*num.i,
+                       self.i*num.r + self.r*num.i)
 
-        sol.r=a.r/b.r
-        sol.i= a.i/b.i
-        return sol
-        
+    def __div__(self, num):
+        sr, si, orr, oi = self.r, self.i, num.r, num.i # introducing short forms
+        r = float(orr**2 + oi**2)
+        return Complex((sr*orr+si*oi)/r, (si*orr-sr*oi)/r)
+
+
 #Testing
 
 num1=Complex(2,4)
 num2=Complex(1,2)
 
-minus=num1 -num2
+minus=num1.__sub__(num2)
 print("num1 - num 2 = " +repr(minus.r) + "+i" +repr(minus.i))
 
-quotient=num1/num2
+quotient=num1.__div__(num2)
 print("num1/ num 2 = " +repr(quotient.r) + "+i" +repr(quotient.i))
 
-product= num1*num2
+product= num1.__mul__(num2)
 print("num1 *num 2 = " +repr(product.r) + "+i" +repr(product.i))
