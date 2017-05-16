@@ -7,27 +7,17 @@ Created on Mon May 15 23:57:15 2017
 
 import numpy as np
 
-def sim_lorentzian(t,a=1,b=1,c=0): #should we add offset, amp etc?
+def sim_lorentzian(t,a=1,b=1,c=0): 
     dat=a/(b+(t-c)**2)
     dat+=np.random.randn(t.size)
     return dat
-    
-
-
-#class Lorentzian:
-#    def __init__(self, t,a=1,b=1,c=0):
-#      self.t=t
-#      self.y=sim_lorentzian(t,a,b,c)
-#      self.err=np.ones(t.size) #error in measurement of noisy data?
-#      self.a=a
-#      self.b=b
-#      self.c=c
+   
 
 class Lorentzian:
     def __init__(self, t,a=1,b=0.5,c=0,offset=0): #a=amp, c=cent
       self.t=t
       self.y=sim_lorentzian(t,a,b,c)+offset
-      self.err=np.ones(t.size) #error in measurement of noisy data?
+      self.err=np.ones(t.size) 
       self.a=a
       self.b=b
       self.c=c
