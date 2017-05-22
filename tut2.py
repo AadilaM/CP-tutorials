@@ -4,6 +4,7 @@ Created on Sat May  6 15:04:19 2017
 
 @author: Aadila
 """
+#Tutorial 2- Aadila Moola
 
 import numpy as np
 from numpy.fft import fft, ifft
